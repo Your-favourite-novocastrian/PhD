@@ -1,0 +1,9 @@
+staff_id,day0,day1,day2,day3,day4,day5,day6,day7,day8,day9,day10,day11,day12,day13
+A,,D,D,D,D,,,D,D,,,D,D,D
+B,D,D,D,D,D,,,D,D,,,D,D,
+C,D,D,D,,,D,D,,,D,D,,,
+D,D,D,,,,D,D,D,D,D,,,,
+E,,D,D,D,D,,,D,D,,,D,D,D
+F,D,D,D,,,,,D,D,D,,,D,D
+G,,,D,D,D,,,D,D,,,D,D,D
+H,D,D,,,D,D,,,D,D,D,D,,

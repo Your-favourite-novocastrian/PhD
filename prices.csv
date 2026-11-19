@@ -1,0 +1,27 @@
+# prices.csv -- GLOBAL prices and valuation choices. NOT instance data.
+# These do not describe the ward; they describe the question you are asking about it.
+# Keeping them here (not in the instance) is what makes a price sweep one command
+# instead of an edit to every instance file.
+#
+# status: SOURCED  = citation or public dataset
+#         DERIVED  = computed from sourced numbers by the stated chain
+#         ASSUMED  = judgement, no source yet -> must be swept in sensitivity analysis
+#
+# UNITS: every price is 2026 AUD. Do not mix base years.
+# ORDERING RULE (check before trusting any run): rho > c_AG > mean c_i.
+key,value,unit,status,source_or_chain
+carbon_price_aud_per_t,36.28,AUD per t CO2e,SOURCED,"ACCU generic spot, Clean Energy Regulator Quarterly Carbon Market Report Q1 2026. Sweep 100/200/500/1000 for social-cost-of-carbon range"
+agency_cost_per_shift,605.00,AUD per agency shift,ASSUMED,"~1.8x mean own-staff wage per shift (mean = 336.50). Replace with the LHD agency rate card"
+agency_max_per_shift,2,staff,ASSUMED,Finite agency pool. Replace with historical max agency fills
+overtime_multiplier,1.5,x hourly rate,ASSUMED,Award overtime loading -- verify clause in the award
+overtime_max_min,480,minutes per nurse per horizon,ASSUMED,One extra 8h shift per fortnight
+rho_understaffing,1200.00,AUD per uncovered shift,ASSUMED,"Patient-safety shadow price. MUST exceed agency_cost or the optimiser buys gaps instead of staff"
+min_senior_share,0.30,fraction of requirement,ASSUMED,"Q_{d,s} = ceil(share x R_{d,s}) -- PROPORTIONAL to the requirement, so it scales with instance size and shift count automatically. A flat 'one senior per shift' does not: 4 shift types x 28 days needs 112 senior-shifts regardless of ward size"
+rho_senior_shortfall,400.00,AUD per missing senior-shift,ASSUMED,"SOFT skill mix: a shift short of seniors costs this rather than being impossible. Set below rho_understaffing (a shift with a junior nurse is worse than ideal, better than empty). This is what makes every instance solvable"
+agency_travel_kg,8.60,kg CO2e per agency shift,ASSUMED,2 x 25 km x 0.171 -- agency staff travel further on average
+e_anc_kg_per_over_shift,2.00,kg CO2e per overstaffed shift,ASSUMED,Ancillary footprint (energy/consumables) of one staffed shift above requirement. Needs a ward-level LCA
+turnover_cost_aud,73000.00,AUD per FTE turnover,DERIVED,"Roche/Duffield/Homer/Buchan/Dimitrelis 2014 Collegian: A$49,255 per FTE (2008-10 AUD), indexed x1.48 to 2026. STATE YOUR DEFLATOR"
+p_leave_per_pref_weight,0.002,probability per weight unit,ASSUMED,"WEAKEST COEFFICIENT IN THE TABLE. Extra annual turnover probability per unit of violated request weight. Sweep 0.0005-0.008"
+p_leave_per_dev_shift,0.004,probability per shift of deviation,ASSUMED,"Perceived-inequity route to attrition. Even weaker than the above -- consider making fairness a CONSTRAINT instead of a price"
+kappa_fatigue,250.00,AUD per 3-consecutive-night block,ASSUMED,Expected error / sick-leave / injury cost of one fatigue pattern. Needs fatigue-risk literature
+kappa_churn,60.00,AUD per changed published shift,ASSUMED,"Admin rework + short-notice disruption to the nurse. If the award carries a short-notice roster-change penalty this becomes SOURCED"

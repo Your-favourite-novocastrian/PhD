@@ -1,0 +1,24 @@
+# Instance1_tbl.csv -- per-nurse TBL facts for Instance1. SIDECAR FILE.
+# Instance1.txt is NOT modified. This file is joined to it on staff_id.
+# Every value below is ASSUMED (hand-set, plausible for a Newcastle NSW ward).
+# Replace before reporting any result. See prices.csv for the global prices.
+#
+# staff_id            must match SECTION_STAFF ids in Instance1.txt (A..H)
+# grade               RN year / CNS -- label only, for traceability to an award table
+# senior              1 if the nurse counts toward the skill-mix minimum (N^sen)
+# hourly_rate_aud     ASSUMED. Replace with NSW Public Health System Nurses' &
+#                     Midwives' (State) Award rate for that grade. c_i = rate x shift hours
+# commute_km_one_way  delta_i. ASSUMED. Replace with a staff travel survey or ABS
+#                     journey-to-work distances for the hospital catchment
+# commute_mode        label only -- determines the emission factor
+# ef_kg_per_km        epsilon_i. ASSUMED. car 0.171 / public transport 0.035 / active 0.
+#                     Replace with DCCEEW National Greenhouse Accounts Factors
+staff_id,grade,senior,hourly_rate_aud,commute_km_one_way,commute_mode,ef_kg_per_km
+A,RN Yr2,0,37.50,32.0,car,0.171
+B,RN Yr5,0,42.00,8.5,car,0.171
+C,CNS,1,50.00,4.2,public_transport,0.035
+D,RN Yr1,0,36.00,18.0,car,0.171
+E,RN Yr8,1,47.50,2.1,active,0.000
+F,RN Yr3,0,39.00,12.5,car,0.171
+G,RN Yr6,1,44.00,25.0,public_transport,0.035
+H,RN Yr4,0,40.50,6.0,car,0.171

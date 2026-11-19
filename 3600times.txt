@@ -1,0 +1,134 @@
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver gurobi --range 1 12  --objective dollars --levers --gap 0.01 --time 3600
+solver gurobi | objective dollars +levers | 12 instance(s) x 1 price(s) = 12 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 720 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Set parameter Username
+Set parameter LicenseID to value 2854316
+Academic license - for non-commercial use only - expires 2027-08-18
+Instance1        8   14   OPTIMAL    0.1    0.2   0.34        7    26,759.00   1,606.00      8.40    28,373.40
+Instance2       14   14   OPTIMAL    0.0    0.6   0.60       18    41,990.00   7,300.00     11.22    49,301.22
+Instance3       20   14   OPTIMAL    0.1   10.9   0.99        0    60,384.00   5,840.00     22.09    66,246.09
+Instance4       10   28   OPTIMAL    0.1    6.5   0.99       15    80,238.00   2,190.00     28.80    82,456.80
+Instance5       16   28   OPTIMAL    0.2   83.4   0.87       31   112,556.00   5,110.00     67.94   117,733.94
+Instance6       18   28   OPTIMAL    0.3   81.9   1.00       30   121,408.00  13,529.33     47.22   134,984.56
+Instance7       20   28   OPTIMAL    0.3   26.9   0.87       44   117,890.00  20,002.00     32.93   137,924.93
+Instance8       30   28  FEASIBLE    0.6 3600.1   1.20       85   186,106.00  23,953.73     83.99   210,143.72
+Instance9       36   28   OPTIMAL    0.6   15.7   0.95       50   148,706.25  16,936.00     64.83   165,707.08
+Instance10      40   28   OPTIMAL    0.9   34.9   0.52       39   257,179.00  16,707.80    107.35   273,994.15
+Instance11      50   28   OPTIMAL    1.8   79.1   0.92       50   303,188.00   3,650.00    136.40   306,974.40
+Instance12      60   28   OPTIMAL    2.1  208.4   0.96       40   399,003.00  25,716.00    149.89   424,868.89
+--------------------------------------------------------------------------------------------------------------
+12 run(s) in 4156.8 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_gurobi.csv
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver gurobi --range 13 23  --objective dollars --levers --gap 0.01 --time 3600
+solver gurobi | objective dollars +levers | 11 instance(s) x 1 price(s) = 11 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 660 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Set parameter Username
+Set parameter LicenseID to value 2854316
+Academic license - for non-commercial use only - expires 2027-08-18
+Instance13     120   28  FEASIBLE   10.5 3600.4   2.36      285   723,576.50  49,702.00    219.48   773,497.98
+Instance14      32   42   OPTIMAL    0.9  606.2   0.86      105   264,412.00  31,557.75    133.25   296,103.00
+Instance15      45   42  FEASIBLE    2.3 3600.1   3.49      369   419,204.00  47,950.00    139.35   467,293.35
+Instance16      20   56   OPTIMAL    0.5  531.0   0.99      136   268,230.00  10,074.00    133.28   278,437.28
+Instance17      32   56   OPTIMAL    0.9 3526.8   0.93      173   445,903.00  42,858.00    224.00   488,985.00
+Instance18      22   84  FEASIBLE    0.9 3600.1   1.28      261   431,098.00  18,210.18    160.89   449,469.07
+Instance19      40   84  FEASIBLE    3.0 3600.2   1.52      238   704,890.00  70,587.20    282.34   775,759.54
+Instance20      50  182  FEASIBLE   12.2 3600.6   1.30      994 1,765,844.00 283,094.00    991.06 2,049,929.06
+Instance21     100  182  FEASIBLE   11.7 3609.4  32.69   65,850 4,960,287.001,106,183.12  1,861.00 6,068,331.12
+Instance22      50  364  FEASIBLE   11.3 3600.3  48.32  234,017 7,377,651.00 947,496.80  1,777.51 8,326,925.31
+Instance23     100  364  FEASIBLE   62.4 4331.7  68.06  488,30115,002,433.502,467,298.00  3,370.1817,473,101.68
+--------------------------------------------------------------------------------------------------------------
+11 run(s) in 34337.8 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_gurobi.csv
+
+
+
+
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 1 12  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 12 instance(s) x 1 price(s) = 12 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 720 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance1        8   14   OPTIMAL    0.0    0.3   0.16        6    26,319.00   2,044.00      8.46    28,371.46
+Instance2       14   14   OPTIMAL    0.0    1.0   0.97       19    41,934.00   7,446.00     11.16    49,391.16
+Instance3       20   14   OPTIMAL    0.1  541.7   0.95        0    60,384.00   5,840.00     22.09    66,246.09
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 4 5  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 2 instance(s) x 1 price(s) = 2 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 120 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance4       10   28   OPTIMAL    0.1  686.6   0.98       15    80,238.00   2,190.00     28.80    82,456.80
+Instance5       16   28  FEASIBLE    0.3 3600.2   1.55       31   112,556.00   5,110.00     67.73   117,733.73
+--------------------------------------------------------------------------------------------------------------
+2 run(s) in 4287.2 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_ortools.csv
+
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 6 12  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 7 instance(s) x 1 price(s) = 7 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 420 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance6       18   28   OPTIMAL    0.2  170.1   0.98       30   120,905.98  13,967.33     47.71   134,921.02
+Instance7       20   28   OPTIMAL    0.2   78.4   0.99       42   117,911.00  20,148.00     31.94   138,090.94
+Instance8       30   28  FEASIBLE    0.4 3600.5   1.89       87   187,336.00  22,776.00     84.39   210,196.39
+Instance9       36   28   OPTIMAL    0.5  117.9   0.94       53   148,446.75  17,082.00     65.56   165,594.31
+Instance10      40   28   OPTIMAL    0.8  259.7   1.00       46   258,203.00  16,897.60    107.90   275,208.50
+Instance11      50   28   OPTIMAL    2.0 1425.7   0.98       56   302,583.00   4,672.00    136.02   307,391.02
+Instance12      60   28  FEASIBLE    2.6 3600.2   3.75      315   404,417.50  31,640.00    150.74   436,208.24
+--------------------------------------------------------------------------------------------------------------
+7 run(s) in 9260.2 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_ortools.csv
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 13 18  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 5 instance(s) x 1 price(s) = 5 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 300 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance13     120   28  FEASIBLE   15.8 3602.0  29.19   11,293   899,444.00  81,030.00    261.33   980,735.33
+Instance14      32   42  FEASIBLE    0.5 3600.3   3.10      128   268,810.00  33,090.75    135.42   302,036.17
+Instance15      45   42  FEASIBLE    2.4 3600.4   6.17      401   427,242.00  49,630.27    145.49   477,017.75
+Instance16      20   56  FEASIBLE    0.7 3600.2   1.78      134   269,430.00   9,782.00    133.28   279,345.28
+Instance17      32   56  FEASIBLE    1.3 3600.7   5.24    1,235   459,151.00  48,046.50    224.62   507,422.12
+Instance18      22   84  FEASIBLE    1.9 3600.4   5.07      217   435,933.00  26,757.82    163.05   462,853.87
+--------------------------------------------------------------------------------------------------------------
+5 run(s) in 18010.1 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_ortools.csv
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 19 21  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 3 instance(s) x 1 price(s) = 3 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 180 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance19      40   84  FEASIBLE    2.0 3600.5   9.54    1,221   779,350.00  57,524.00    324.87   837,198.87
+Instance20      50  182FEASIBLE-NOT-OPTIMISED   22.8 3670.9    nan  228,783 4,764,038.00 704,625.20  1,132.09 5,469,795.29
+Instance21     100  182  FEASIBLE   55.8 3605.5  26.95   57,824 4,682,402.00 561,730.96  1,666.47 5,245,799.43
+--------------------------------------------------------------------------------------------------------------
+3 run(s) in 10965.8 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_ortools.csv
+
+C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench>python run_all.py --solver ortools --range 22 24  --objective dollars --levers --gap 0.01 --time 3600
+solver ortools | objective dollars +levers | 3 instance(s) x 1 price(s) = 3 run(s)
+limits: 3600 s per run, stop at 1% gap   -> worst case 180 min
+
+instance     staff days    status  build  solve   gap%  penalty       F_econ      F_soc     F_env     TOTAL A$
+--------------------------------------------------------------------------------------------------------------
+Instance22      50  364   UNKNOWN   44.5 5408.4                  NO SOLUTION
+Instance23     100  364FEASIBLE-NOT-OPTIMISED  197.3 5318.9    nan  606,04315,236,937.502,440,844.24  2,593.9217,680,375.66
+Instance24     150  364     ERROR   bad allocation
+--------------------------------------------------------------------------------------------------------------
+3 run(s) in 18653.5 s
+summary written to C:\Users\o_kay\Downloads\tbl_hwsp\tbl_bench\results\summary_dollars_levers_ortools.csv

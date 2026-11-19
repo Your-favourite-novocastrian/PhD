@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Roster — Visual Timetable</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1: #fcfcfb; --page: #f9f9f7;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #898781;
+    --gridline: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --weekend-tint: rgba(11,11,11,0.035);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1: #1a1a19; --page: #0d0d0d;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #898781;
+      --gridline: #2c2c2a; --border: rgba(255,255,255,0.10);
+      --weekend-tint: rgba(255,255,255,0.045);
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1: #1a1a19; --page: #0d0d0d;
+    --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #898781;
+    --gridline: #2c2c2a; --border: rgba(255,255,255,0.10);
+    --weekend-tint: rgba(255,255,255,0.045);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .viz-root { padding: 32px 20px 60px; background: var(--page); min-height: 100vh; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+  h1 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+  .subtitle { font-size: 0.88rem; color: var(--text-secondary); margin: 0; }
+  .theme-toggle { flex-shrink: 0; border: 1px solid var(--border); background: var(--surface-1);
+    color: var(--text-secondary); border-radius: 7px; padding: 6px 12px; font-size: 0.78rem; cursor: pointer; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; overflow-x: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 14px; font-size: 0.82rem; color: var(--text-secondary); }
+  .legend-item { display: flex; align-items: center; gap: 7px; }
+  .swatch { width: 14px; height: 14px; border-radius: 4px; background: var(--cell-light); flex-shrink: 0; }
+  :root[data-theme="dark"] .swatch { background: var(--cell-dark); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .swatch { background: var(--cell-dark); } }
+  table.roster { border-collapse: collapse; font-size: 0.78rem; }
+  table.roster th, table.roster td { text-align: center; padding: 6px 8px; border: 1px solid var(--gridline); min-width: 26px; }
+  table.roster th { color: var(--text-muted); font-weight: 600; font-size: 0.7rem; }
+  th.corner, td.staffcol { text-align: left; color: var(--text-primary); font-weight: 600; position: sticky; left: 0; background: var(--surface-1); }
+  th.weekend, td.weekend { background: var(--weekend-tint); }
+  td.off { color: var(--text-muted); }
+  td.shift { background: var(--cell-light); color: #fff; font-weight: 700; }
+  :root[data-theme="dark"] td.shift { background: var(--cell-dark); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) td.shift { background: var(--cell-dark); } }
+  .caption { font-size: 0.82rem; color: var(--text-secondary); margin-top: 14px; line-height: 1.5; }
+  details.tableview { margin-top: 20px; }
+  details.tableview summary { cursor: pointer; font-size: 0.85rem; color: var(--text-secondary); }
+  table.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.82rem; }
+  table.data-table th, table.data-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--gridline); color: var(--text-secondary); }
+  .status-ok { color: var(--text-muted); }
+  .status-under { color: #d03b3b; font-weight: 600; }
+  .status-over { color: #eda100; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <h1>Optimized roster — visual timetable</h1>
+        <p class="subtitle">8 staff &times; 14 days. Shaded columns are Saturday/Sunday.</p>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button">Dark mode</button>
+    </div>
+    <div class="card">
+      <div class="legend"><div class="legend-item"><span class="swatch" style="--cell-light:#2a78d6;--cell-dark:#3987e5"></span>Shift D</div><div class="legend-item"><span class="swatch" style="background:transparent;border:1px solid var(--gridline)"></span>&middot; = day off</div></div>
+      <table class="roster">
+        <thead><tr><th class='corner'>Staff</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th class="weekend">5</th><th class="weekend">6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th class="weekend">12</th><th class="weekend">13</th></tr></thead>
+        <tbody><tr><td class='staffcol'>A</td><td class="off" title="Staff A, day 0: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 1: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 2: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 3: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 4: shift D">D</td><td class="off weekend" title="Staff A, day 5: off">&middot;</td><td class="off weekend" title="Staff A, day 6: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 8: shift D">D</td><td class="off" title="Staff A, day 9: off">&middot;</td><td class="off" title="Staff A, day 10: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 11: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 12: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff A, day 13: shift D">D</td></tr>
+<tr><td class='staffcol'>B</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 0: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 1: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 2: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 3: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 4: shift D">D</td><td class="off weekend" title="Staff B, day 5: off">&middot;</td><td class="off weekend" title="Staff B, day 6: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 8: shift D">D</td><td class="off" title="Staff B, day 9: off">&middot;</td><td class="off" title="Staff B, day 10: off">&middot;</td><td class="off" title="Staff B, day 11: off">&middot;</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 12: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff B, day 13: shift D">D</td></tr>
+<tr><td class='staffcol'>C</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 0: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 1: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 2: shift D">D</td><td class="off" title="Staff C, day 3: off">&middot;</td><td class="off" title="Staff C, day 4: off">&middot;</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 5: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 6: shift D">D</td><td class="off" title="Staff C, day 7: off">&middot;</td><td class="off" title="Staff C, day 8: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 9: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 10: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff C, day 11: shift D">D</td><td class="off weekend" title="Staff C, day 12: off">&middot;</td><td class="off weekend" title="Staff C, day 13: off">&middot;</td></tr>
+<tr><td class='staffcol'>D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 0: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 1: shift D">D</td><td class="off" title="Staff D, day 2: off">&middot;</td><td class="off" title="Staff D, day 3: off">&middot;</td><td class="off" title="Staff D, day 4: off">&middot;</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 5: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 6: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 8: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff D, day 9: shift D">D</td><td class="off" title="Staff D, day 10: off">&middot;</td><td class="off" title="Staff D, day 11: off">&middot;</td><td class="off weekend" title="Staff D, day 12: off">&middot;</td><td class="off weekend" title="Staff D, day 13: off">&middot;</td></tr>
+<tr><td class='staffcol'>E</td><td class="off" title="Staff E, day 0: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 1: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 2: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 3: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 4: shift D">D</td><td class="off weekend" title="Staff E, day 5: off">&middot;</td><td class="off weekend" title="Staff E, day 6: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 8: shift D">D</td><td class="off" title="Staff E, day 9: off">&middot;</td><td class="off" title="Staff E, day 10: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 11: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 12: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff E, day 13: shift D">D</td></tr>
+<tr><td class='staffcol'>F</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 0: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 1: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 2: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 3: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 4: shift D">D</td><td class="off weekend" title="Staff F, day 5: off">&middot;</td><td class="off weekend" title="Staff F, day 6: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 8: shift D">D</td><td class="off" title="Staff F, day 9: off">&middot;</td><td class="off" title="Staff F, day 10: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 11: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff F, day 12: shift D">D</td><td class="off weekend" title="Staff F, day 13: off">&middot;</td></tr>
+<tr><td class='staffcol'>G</td><td class="off" title="Staff G, day 0: off">&middot;</td><td class="off" title="Staff G, day 1: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 2: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 3: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 4: shift D">D</td><td class="off weekend" title="Staff G, day 5: off">&middot;</td><td class="off weekend" title="Staff G, day 6: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 7: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 8: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 9: shift D">D</td><td class="off" title="Staff G, day 10: off">&middot;</td><td class="off" title="Staff G, day 11: off">&middot;</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 12: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff G, day 13: shift D">D</td></tr>
+<tr><td class='staffcol'>H</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 0: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 1: shift D">D</td><td class="off" title="Staff H, day 2: off">&middot;</td><td class="off" title="Staff H, day 3: off">&middot;</td><td class="off" title="Staff H, day 4: off">&middot;</td><td class="off weekend" title="Staff H, day 5: off">&middot;</td><td class="off weekend" title="Staff H, day 6: off">&middot;</td><td class="off" title="Staff H, day 7: off">&middot;</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 8: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 9: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 10: shift D">D</td><td class="shift" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 11: shift D">D</td><td class="shift weekend" style="--cell-light:#2a78d6;--cell-dark:#3987e5" title="Staff H, day 12: shift D">D</td><td class="off weekend" title="Staff H, day 13: off">&middot;</td></tr>
+</tbody>
+      </table>
+      <p class="caption">Each cell shows the shift letter a nurse is assigned that day; a dot means a day off. Hover any cell for a plain-language readout.</p>
+      
+        <details class="tableview">
+          <summary>Coverage check (required vs. actually assigned, per day/shift)</summary>
+          <table class="data-table">
+            <thead><tr><th>Day</th><th>Shift</th><th>Required</th><th>Assigned</th><th>Status</th></tr></thead>
+            <tbody><tr><td>0</td><td>D</td><td>5</td><td>5</td><td class="status-ok">ok</td></tr>
+<tr><td>1</td><td>D</td><td>7</td><td>7</td><td class="status-ok">ok</td></tr>
+<tr><td>2</td><td>D</td><td>6</td><td>6</td><td class="status-ok">ok</td></tr>
+<tr><td>3</td><td>D</td><td>4</td><td>5</td><td class="status-over">over</td></tr>
+<tr><td>4</td><td>D</td><td>5</td><td>5</td><td class="status-ok">ok</td></tr>
+<tr><td>5</td><td>D</td><td>5</td><td>2</td><td class="status-under">under</td></tr>
+<tr><td>6</td><td>D</td><td>5</td><td>2</td><td class="status-under">under</td></tr>
+<tr><td>7</td><td>D</td><td>6</td><td>6</td><td class="status-ok">ok</td></tr>
+<tr><td>8</td><td>D</td><td>7</td><td>7</td><td class="status-ok">ok</td></tr>
+<tr><td>9</td><td>D</td><td>4</td><td>4</td><td class="status-ok">ok</td></tr>
+<tr><td>10</td><td>D</td><td>2</td><td>2</td><td class="status-ok">ok</td></tr>
+<tr><td>11</td><td>D</td><td>5</td><td>5</td><td class="status-ok">ok</td></tr>
+<tr><td>12</td><td>D</td><td>6</td><td>6</td><td class="status-ok">ok</td></tr>
+<tr><td>13</td><td>D</td><td>4</td><td>4</td><td class="status-ok">ok</td></tr>
+</tbody>
+          </table>
+        </details>
+    </div>
+  </div>
+</div>
+<script>
+  var btn = document.getElementById('themeToggle');
+  var root = document.documentElement;
+  btn.addEventListener('click', function() {
+    var isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? 'Dark mode' : 'Light mode';
+  });
+</script>
+</body>
+</html>
